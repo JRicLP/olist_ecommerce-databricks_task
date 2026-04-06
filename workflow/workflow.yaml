@@ -1,1 +1,28 @@
-
+resources:
+  jobs:
+    New_Job_Apr_06_2026_05_21_PM:
+      name: New Job Apr 06, 2026, 05:21 PM
+      schedule:
+        quartz_cron_expression: 44 0 13 * * ?
+        timezone_id: America/Sao_Paulo
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: bronze_pipeline
+          notebook_task:
+            notebook_path: /Workspace/Users/joaoricardolopes2013@gmail.com/olist_ecommerce_pipeline/01_bronze_layer
+            source: WORKSPACE
+        - task_key: silver_pipeline
+          depends_on:
+            - task_key: bronze_pipeline
+          notebook_task:
+            notebook_path: /Workspace/Users/joaoricardolopes2013@gmail.com/olist_ecommerce_pipeline/02_silver_layer
+            source: WORKSPACE
+        - task_key: gold_pipeline
+          depends_on:
+            - task_key: silver_pipeline
+          notebook_task:
+            notebook_path: /Workspace/Users/joaoricardolopes2013@gmail.com/olist_ecommerce_pipeline/03_gold_layer
+            source: WORKSPACE
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED
