@@ -1,27 +1,27 @@
 resources:
   jobs:
-    New_Job_Apr_06_2026_05_21_PM:
-      name: New Job Apr 06, 2026, 05:21 PM
+    Job_Olist_Ecommerce_Dataset_Apr_07_2026_04_47_PM:
+      name: "Job: Olist Ecommerce Dataset Apr 07, 2026, 04:47 PM"
       schedule:
-        quartz_cron_expression: 44 0 13 * * ?
+        quartz_cron_expression: 29 0 13 * * ?
         timezone_id: America/Sao_Paulo
         pause_status: UNPAUSED
       tasks:
-        - task_key: bronze_pipeline
+        - task_key: bronze
           notebook_task:
-            notebook_path: /Workspace/Users/joaoricardolopes2013@gmail.com/olist_ecommerce_pipeline/01_bronze_layer
+            notebook_path: /Workspace/Users/joaoricardolopes2013@gmail.com/olist_ecommerce_pipeline/Atividade_land_to_bronze
             source: WORKSPACE
-        - task_key: silver_pipeline
+        - task_key: silver
           depends_on:
-            - task_key: bronze_pipeline
+            - task_key: bronze
           notebook_task:
-            notebook_path: /Workspace/Users/joaoricardolopes2013@gmail.com/olist_ecommerce_pipeline/02_silver_layer
+            notebook_path: /Workspace/Users/joaoricardolopes2013@gmail.com/olist_ecommerce_pipeline/Atividade_bronze_to_silver
             source: WORKSPACE
-        - task_key: gold_pipeline
+        - task_key: gold
           depends_on:
-            - task_key: silver_pipeline
+            - task_key: silver
           notebook_task:
-            notebook_path: /Workspace/Users/joaoricardolopes2013@gmail.com/olist_ecommerce_pipeline/03_gold_layer
+            notebook_path: /Workspace/Users/joaoricardolopes2013@gmail.com/olist_ecommerce_pipeline/Atividade_silver_to_gold
             source: WORKSPACE
       queue:
         enabled: true
